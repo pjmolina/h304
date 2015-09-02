@@ -12,6 +12,10 @@ app.get('/r1', function(req, res) {
 });
 
 //Trailer setup header declared, but Etag send in header (injected by Express), not in trailer
+//Will cause a 502 error on Bluemix Router when receiving a server 304 after this call:
+//
+//   curl -i localhost:5000/r2 -H "If-None-Match: \"f-Ulj/1cfc5QSkTxln+OAWXg"\"
+//
 app.get('/r2', function(req, res) {
 	res.set('Trailer', 'ETag')
 	   .send(resource1)

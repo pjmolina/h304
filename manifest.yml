@@ -1,0 +1,4 @@
+---
+applications:
+- name: h304
+  command: node server.js
