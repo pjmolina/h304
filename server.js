@@ -6,6 +6,10 @@ var resource1 = {
 	msg: 'Hello'
 }
 
+//Reference deployments
+//heroku:   http://h304.herokuapp.com/r1
+//bluemix:  http://h304.mybluemix.net/r1
+
 //Express method with Etag. No trailer added
 app.get('/r1', function(req, res) {
 	res.send(resource1).end();
@@ -21,6 +25,15 @@ app.get('/r2', function(req, res) {
 	   .send(resource1)
 	   .end();
 });
+
+//Variant 3. Addding Transfer-Encoding: chunked to satisfy bluemix router
+app.get('/r3', function(req, res) {
+	res.set('Trailer', 'ETag')
+	   .set('Transfer-Encoding', 'chunked')
+	   .send(resource1)
+	   .end();
+});
+
 
 
 app.enable('etag');
